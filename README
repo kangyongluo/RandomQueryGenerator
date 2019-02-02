@@ -1,0 +1,47 @@
+INTRODUCTION
+---------------------------------------------------------------
+
+This is the source or binary distribution of The Random Query
+Generator, a tool for generating complete databases and executing
+queries against them for the purpose of stress testing.
+
+Copyright © 2008 Sun Microsystems, Inc. All rights reserved.  Use is
+subject to license terms.
+
+Wiki:
+* http://forge.mysql.com/wiki/Category:RandomQueryGenerator
+
+Launchpad homepage:
+* https://launchpad.net/randgen
+
+Bazaar code repository:
+* lp:randgen
+
+
+LICENSE
+---------------------------------------------------------------
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; version 2 of the License. Please see the
+LICENSE file for information about licensing and use restrictions of
+this software.
+
+example:
+If you use JDBC driver to connect to the database,please start the dbd-jdbc server first.
+cd dbd_server
+./start_dbd.sh 
+
+
+./gensql.pl --grammar=conf/example.yy --dsn=dbi:mysql:host=localhost:port=3306:user=root:database=test
+./gensql.pl --grammar=conf/example.yy --dsn=dbi:odbc:dsn=traf:user=trafodion:pwd=traf123:schema=seabase:sqltype=trafodion
+./gensql.pl --grammar conf/example.yy --dsn 'dbi:JDBC:hostname=localhost:9001;url=jdbc:t4jdbc://10.10.14.65:23400/:user=trafodion:pwd=traf123:schema=seabase:sqltype=trafodion'
+
+./gentest.pl --grammar=conf/example.yy --dsn=dbi:mysql:host=localhost:port=3306:user=root:database=test --queries=10 --threads=1
+./gentest.pl --grammar=conf/example.yy --dsn=dbi:odbc:dsn=traf:user=trafodion:pwd=traf123:schema=odbctest:sqltype=trafodion --queries=10 --threads=1
+./gentest.pl --grammar=conf/example.yy --dsn 'dbi:JDBC:hostname=localhost:9001;url=jdbc:t4jdbc://10.10.14.65:23400/:user=trafodion:pwd=traf123:schema=seabase:sqltype=trafodion'
+ --queries=10 --threads=1
+
+./gendata.pl --dsn=dbi:mysql:host=localhost:port=3306:user=root:database=test --spec=conf/example.zz
+./gendata.pl --dsn=dbi:odbc:dsn=traf:user=trafodion:pwd=traf123:schema=odbctest:sqltype=trafodion --spec=conf/example.zz
+./gendata.pl --dsn 'dbi:JDBC:hostname=localhost:9001;url=jdbc:t4jdbc://10.10.14.65:23400/:user=trafodion:pwd=traf123:schema=seabase:sqltype=trafodion' --spec=conf/example.zz
